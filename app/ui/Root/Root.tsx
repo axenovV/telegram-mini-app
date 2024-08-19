@@ -14,10 +14,10 @@ import {
 import { TonConnectUIProvider } from '@tonconnect/ui-react';
 import { AppRoot } from '@telegram-apps/telegram-ui';
 
-import { ErrorBoundary } from '@/components/ErrorBoundary';
-import { ErrorPage } from '@/components/ErrorPage';
-import { useTelegramMock } from '@/hooks/useTelegramMock';
-import { useDidMount } from '@/hooks/useDidMount';
+import { ErrorBoundary } from '../ErrorBoundary'; 
+import { ErrorPage } from '../ErrorPage';
+import { useTelegramMock } from '@/app/libs/hooks/useTelegramMock';
+import { useDidMount } from '@/app/libs/hooks/useDidMount';
 
 import './styles.css';
 
