@@ -5,7 +5,8 @@ import { useInitData, useLaunchParams, type User } from '@telegram-apps/sdk-reac
 import { List, Placeholder } from '@telegram-apps/telegram-ui';
 import { postEvent, on } from '@telegram-apps/sdk-react';
 import { DisplayData, type DisplayDataRow } from '../ui/DisplayData/DisplayData';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
+
 function getUserRows(user: User): DisplayDataRow[] {
   return [
     { title: 'id', value: user.id.toString() },
