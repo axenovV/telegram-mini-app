@@ -1,113 +1,101 @@
-import Image from "next/image";
+'use client';
 
-export default function Home() {
-  return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:size-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+import { useMemo } from 'react';
+import { useInitData, useLaunchParams, type User } from '@telegram-apps/sdk-react';
+import { List, Placeholder } from '@telegram-apps/telegram-ui';
 
-      <div className="relative z-[-1] flex place-items-center before:absolute before:h-[300px] before:w-full before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 sm:before:w-[480px] sm:after:w-[240px] before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+import { DisplayData, type DisplayDataRow } from './ui/DisplayData/DisplayData';
 
-      <div className="mb-32 grid text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Explore starter templates for Next.js.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-balance text-sm opacity-50">
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  );
+function getUserRows(user: User): DisplayDataRow[] {
+  return [
+    { title: 'id', value: user.id.toString() },
+    { title: 'username', value: user.username },
+    { title: 'photo_url', value: user.photoUrl },
+    { title: 'last_name', value: user.lastName },
+    { title: 'first_name', value: user.firstName },
+    { title: 'is_bot', value: user.isBot },
+    { title: 'is_premium', value: user.isPremium },
+    { title: 'language_code', value: user.languageCode },
+    { title: 'allows_to_write_to_pm', value: user.allowsWriteToPm },
+    { title: 'added_to_attachment_menu', value: user.addedToAttachmentMenu },
+  ];
 }
+
+export default function InitDataPage() {
+  const initDataRaw = useLaunchParams().initDataRaw;
+  const initData = useInitData();
+
+  const initDataRows = useMemo<DisplayDataRow[] | undefined>(() => {
+    if (!initData || !initDataRaw) {
+      return;
+    }
+    const {
+      hash,
+      queryId,
+      chatType,
+      chatInstance,
+      authDate,
+      startParam,
+      canSendAfter,
+      canSendAfterDate,
+    } = initData;
+    return [
+      { title: 'raw', value: initDataRaw },
+      { title: 'auth_date', value: authDate.toLocaleString() },
+      { title: 'auth_date (raw)', value: authDate.getTime() / 1000 },
+      { title: 'hash', value: hash },
+      { title: 'can_send_after', value: canSendAfterDate?.toISOString() },
+      { title: 'can_send_after (raw)', value: canSendAfter },
+      { title: 'query_id', value: queryId },
+      { title: 'start_param', value: startParam },
+      { title: 'chat_type', value: chatType },
+      { title: 'chat_instance', value: chatInstance },
+    ];
+  }, [initData, initDataRaw]);
+
+  const userRows = useMemo<DisplayDataRow[] | undefined>(() => {
+    return initData && initData.user ? getUserRows(initData.user) : undefined;
+  }, [initData]);
+
+  const receiverRows = useMemo<DisplayDataRow[] | undefined>(() => {
+    return initData && initData.receiver ? getUserRows(initData.receiver) : undefined;
+  }, [initData]);
+
+  const chatRows = useMemo<DisplayDataRow[] | undefined>(() => {
+    if (!initData?.chat) {
+      return;
+    }
+    const { id, title, type, username, photoUrl } = initData.chat;
+
+    return [
+      { title: 'id', value: id.toString() },
+      { title: 'title', value: title },
+      { title: 'type', value: type },
+      { title: 'username', value: username },
+      { title: 'photo_url', value: photoUrl },
+    ];
+  }, [initData]);
+
+  if (!initDataRows) {
+    return (
+      <Placeholder
+        header="Oops"
+        description="Application was launched with missing init data"
+      >
+        <img
+          alt="Telegram sticker"
+          src="https://xelene.me/telegram.gif"
+          style={{ display: 'block', width: '144px', height: '144px' }}
+        />
+      </Placeholder>
+    );
+  }
+  return (
+    <List>
+      <DisplayData header={'Init Data'} rows={initDataRows}/>
+      {userRows && <DisplayData header={'User'} rows={userRows}/>}
+      {receiverRows && <DisplayData header={'Receiver'} rows={receiverRows}/>}
+      {chatRows && <DisplayData header={'Chat'} rows={chatRows}/>}
+    </List>
+  );
+};
