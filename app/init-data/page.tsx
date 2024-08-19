@@ -27,10 +27,9 @@ export default function InitDataPage() {
   const initData = useInitData();
   postEvent('web_app_setup_back_button', { is_visible: true });
 
-  const removeListener = on('back_button_pressed', payload => {
+  on('back_button_pressed', (payload) => {
     router.back();
-    console.log('Viewport changed:', payload);
-  });
+  }, true);
 
   const initDataRows = useMemo<DisplayDataRow[] | undefined>(() => {
     if (!initData || !initDataRaw) {
