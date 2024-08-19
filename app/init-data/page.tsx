@@ -3,9 +3,8 @@
 import { useMemo } from 'react';
 import { useInitData, useLaunchParams, type User } from '@telegram-apps/sdk-react';
 import { List, Placeholder } from '@telegram-apps/telegram-ui';
-import { postEvent, on } from '@telegram-apps/sdk-react';
 import { DisplayData, type DisplayDataRow } from '../ui/DisplayData/DisplayData';
-import { useRouter } from 'next/navigation';
+
 
 function getUserRows(user: User): DisplayDataRow[] {
   return [
@@ -23,14 +22,8 @@ function getUserRows(user: User): DisplayDataRow[] {
 }
 
 export default function InitDataPage() {
-  const router = useRouter()
   const initDataRaw = useLaunchParams().initDataRaw;
   const initData = useInitData();
-  postEvent('web_app_setup_back_button', { is_visible: true });
-
-  on('back_button_pressed', (payload) => {
-    router.back();
-  }, true);
 
   const initDataRows = useMemo<DisplayDataRow[] | undefined>(() => {
     if (!initData || !initDataRaw) {
